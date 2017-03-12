@@ -1,0 +1,56 @@
+body {
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #455A64;
+}
+#gameDiv {
+	width: 100%;
+	right: 50%;
+	top: 50%;
+	border-radius: 10px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+button {
+	border-radius: 10px;
+	background-color: #039BE5;
+	color: #212121;
+	font-size: 30px;
+	border: 2px solid #212121;
+	box-shadow: 6px 6px 3px #212121;
+
+}
+canvas {
+	border-radius: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 6px solid #212121;
+}
+.bottom {
+	margin-left: auto;
+	margin-right: auto;
+}
+h2 {
+	color: #4CAF50;
+}
+p {
+	font-size: 90%;
+}
+a:link {
+    color: #76f4a5;
+}
+
+/* visited link */
+a:visited {
+    color: #76f4a5;
+}
+
+/* mouse over link */
+a:hover {
+    color: #76f4a5;
+}
+
+/* selected link */
+a:active {
+    color: #76f4a5;
+}
