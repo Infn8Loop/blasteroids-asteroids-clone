@@ -122,7 +122,7 @@ gameState.prototype = {
 			 buttonthrust.events.onInputDown.add(function(){thrust=true;});
 			 buttonthrust.events.onInputUp.add(function(){thrust=false;});
 
-			 buttonfire = game.add.button(window.innerWidth - 164, window.innerHeight - 150,  'buttonfire', null, this, 0, 1, 0, 1);
+			 buttonfire = game.add.button(window.innerWidth - 170, window.innerHeight - 150,  'buttonfire', null, this, 0, 1, 0, 1);
 			 buttonfire.fixedToCamera = true;
 			 buttonfire.events.onInputOver.add(function(){fire=true;});
 			 buttonfire.events.onInputOut.add(function(){fire=false;});
