@@ -91,8 +91,8 @@ var gameState = function (game){
 gameState.prototype = {
 
     preload: function () {
-				game.load.spritesheet('buttonhorizontal', 'assets/button-horizontal.png',40,40);
-	 			game.load.spritesheet('buttonfire', 'assets/button-round-a.png',40,40);
+				game.load.spritesheet('buttonhorizontal', 'assets/button-horizontal.png',50,50);
+	 			game.load.spritesheet('buttonfire', 'assets/button-round-a.png',50,50);
 	 			game.load.spritesheet('buttonthrust', 'assets/button-round-b.png',40,40);
 
         game.load.image(graphicAssets.asteroidLarge.name, graphicAssets.asteroidLarge.URL);
@@ -136,7 +136,7 @@ gameState.prototype = {
 			 buttonleft.events.onInputDown.add(function(){left=true;});
 			 buttonleft.events.onInputUp.add(function(){left=false;});
 
-			 buttonright = game.add.button(70, window.innerHeight - 150, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+			 buttonright = game.add.button(80, window.innerHeight - 150, 'buttonhorizontal', null, this, 0, 1, 0, 1);
 		   buttonright.fixedToCamera = true;
 		   buttonright.events.onInputOver.add(function(){right=true;});
 		   buttonright.events.onInputOut.add(function(){right=false;});
