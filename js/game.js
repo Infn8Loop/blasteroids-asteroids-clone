@@ -51,13 +51,13 @@ var bulletProperties = {
 }
 
 var asteroidProperties = {
-	startingAsteroids: 3,
-	maxAsteroids: 20,
-	incrementAsteroids: 2,
+	startingAsteroids: 2,
+	maxAsteroids: 10,
+	incrementAsteroids: 1,
 
-	asteroidLarge: {minVelocity: 50, maxVelocity: 125, minAngularVelocity: 0, maxAngularVelocity: 200, score: 20, nextSize: graphicAssets.asteroidMedium.name, pieces: 2},
-	asteroidMedium: {minVelocity: 50, maxVelocity: 220, minAngularVelocity: 0, maxAngularVelocity: 200, score: 50, nextSize: graphicAssets.asteroidSmall.name, pieces: 2},
-	asteroidSmall: {minVelocity: 50, maxVelocity: 325, minAngularVelocity: 0, maxAngularVelocity: 200, score: 100},
+	asteroidLarge: {minVelocity: 25, maxVelocity: 100, minAngularVelocity: 0, maxAngularVelocity: 200, score: 200, nextSize: graphicAssets.asteroidMedium.name, pieces: 2},
+	asteroidMedium: {minVelocity: 30, maxVelocity: 175, minAngularVelocity: 0, maxAngularVelocity: 200, score: 500, nextSize: graphicAssets.asteroidSmall.name, pieces: 2},
+	asteroidSmall: {minVelocity: 35, maxVelocity: 250, minAngularVelocity: 0, maxAngularVelocity: 200, score: 1000},
 };
 
 var fontAssets = {
