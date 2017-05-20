@@ -58,6 +58,6 @@ a:active {
 	z-index: 100;
 	color: snow;
 	position: absolute;
-	left: 50vw;
-	top: 25px;
+	right: 200px;
+	top: 20px;
 }

@@ -3,6 +3,7 @@ var thrust = false;
 var fire = false;
 var left = false;
 var right = false;
+var high = 0;
 
 var gameProperties = {
 	screenWidth: window.innerWidth -50,
@@ -107,6 +108,15 @@ gameState.prototype = {
     },
 
     create: function () {
+			try {
+				if(localStorage.getItem("high")){
+					high = localStorage.getItem("high");
+					document.getElementById("high-score").innerHTML = "<h4>HIGH " + high + "</h4>";
+				}
+			} catch(e){
+				console.log(e);
+			}
+
         this.initGraphics();
         this.initSounds();
         this.initPhysics();
@@ -320,9 +330,15 @@ gameState.prototype = {
         if (this.shipLives) {
             game.time.events.add(Phaser.Timer.SECOND * shipProperties.timeToReset, this.resetShip, this);
         } else {
-					document.getElementById("high-score").innerHTML = "LAST SCORE " + this.score, 500;
+					if (this.score > high){
+					localStorage.setItem("high", this.score);
+					document.getElementById("high-score").innerHTML = "<h4>HIGH " + this.score + "</h4>";
 					game.state.add(states.game, gameState);
 					setTimeout(game.state.start(states.game));
+				} else {
+					game.state.add(states.game, gameState);
+					setTimeout(game.state.start(states.game));
+				}
 
 				}
     },
