@@ -91,9 +91,9 @@ var gameState = function (game){
 gameState.prototype = {
 
     preload: function () {
-				game.load.spritesheet('buttonhorizontal', 'assets/button-horizontal.png',50,50);
-	 			game.load.spritesheet('buttonfire', 'assets/button-round-a.png',50,50);
-	 			game.load.spritesheet('buttonthrust', 'assets/button-round-b.png',50,50);
+				game.load.spritesheet('buttonhorizontal', 'assets/button-horizontal.png',60,60);
+	 			game.load.spritesheet('buttonfire', 'assets/button-round-a.png',60,60);
+	 			game.load.spritesheet('buttonthrust', 'assets/button-round-b.png',60,60);
 
         game.load.image(graphicAssets.asteroidLarge.name, graphicAssets.asteroidLarge.URL);
         game.load.image(graphicAssets.asteroidMedium.name, graphicAssets.asteroidMedium.URL);
@@ -115,7 +115,7 @@ gameState.prototype = {
 				// create our virtual game controller buttons
 				thrust_x = window.innerWidth - 100;
 
-			 buttonthrust = game.add.button(window.innerWidth - 115, window.innerHeight - 220, 'buttonthrust', null, this, 0, 1, 0, 1);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
+			 buttonthrust = game.add.button(window.innerWidth - 125, window.innerHeight - 220, 'buttonthrust', null, this, 0, 1, 0, 1);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
 			 buttonthrust.fixedToCamera = true;  //our buttons should stay on the same place
 			 buttonthrust.events.onInputOver.add(function(){thrust=true;});
 			 buttonthrust.events.onInputOut.add(function(){thrust=false;});
