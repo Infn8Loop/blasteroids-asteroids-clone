@@ -1,4 +1,9 @@
-alert("Blasteroids- a phaser.JS game by MSRinteractive \n This game requires a keyboard. Use the arrow keys to steer your ship. Press the Space-Bar to Blast the Aliens. \n Click OK when you are ready to begin. ");
+// alert("Blasteroids- a phaser.JS game by MSRinteractive \n This game requires a keyboard. Use the arrow keys to steer your ship. Press the Space-Bar to Blast the Aliens. \n Click OK when you are ready to begin. ");
+var thrust = false;
+var fire = false;
+var left = false;
+var right = false;
+
 var gameProperties = {
 	screenWidth: window.innerWidth -50,
 	screenHeight: window.innerHeight -50,
@@ -86,6 +91,10 @@ var gameState = function (game){
 gameState.prototype = {
 
     preload: function () {
+				game.load.spritesheet('buttonhorizontal', 'assets/button-horizontal.png',40,40);
+	 			game.load.spritesheet('buttonfire', 'assets/button-round-a.png',40,40);
+	 			game.load.spritesheet('buttonthrust', 'assets/button-round-b.png',40,40);
+
         game.load.image(graphicAssets.asteroidLarge.name, graphicAssets.asteroidLarge.URL);
         game.load.image(graphicAssets.asteroidMedium.name, graphicAssets.asteroidMedium.URL);
         game.load.image(graphicAssets.asteroidSmall.name, graphicAssets.asteroidSmall.URL);
@@ -103,6 +112,37 @@ gameState.prototype = {
         this.initPhysics();
         this.initKeyboard();
         this.resetAsteroids();
+				// create our virtual game controller buttons
+				thrust_x = window.innerWidth - 100;
+
+			 buttonthrust = game.add.button(window.innerWidth - 100, window.innerHeight - 125, 'buttonthrust', null, this, 0, 1, 0, 1);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
+			 buttonthrust.fixedToCamera = true;  //our buttons should stay on the same place
+			 buttonthrust.events.onInputOver.add(function(){thrust=true;});
+			 buttonthrust.events.onInputOut.add(function(){thrust=false;});
+			 buttonthrust.events.onInputDown.add(function(){thrust=true;});
+			 buttonthrust.events.onInputUp.add(function(){thrust=false;});
+
+			 buttonfire = game.add.button(window.innerWidth - 150, window.innerHeight - 100,  'buttonfire', null, this, 0, 1, 0, 1);
+			 buttonfire.fixedToCamera = true;
+			 buttonfire.events.onInputOver.add(function(){fire=true;});
+			 buttonfire.events.onInputOut.add(function(){fire=false;});
+			 buttonfire.events.onInputDown.add(function(){fire=true;});
+			 buttonfire.events.onInputUp.add(function(){fire=false;});
+
+			 buttonleft = game.add.button(20, window.innerHeight - 120, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+		   buttonleft.fixedToCamera = true;
+			 buttonleft.events.onInputOver.add(function(){left=true;});
+			 buttonleft.events.onInputOut.add(function(){left=false;});
+			 buttonleft.events.onInputDown.add(function(){left=true;});
+			 buttonleft.events.onInputUp.add(function(){left=false;});
+
+			 buttonright = game.add.button(62, window.innerHeight - 120, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+		   buttonright.fixedToCamera = true;
+		   buttonright.events.onInputOver.add(function(){right=true;});
+		   buttonright.events.onInputOut.add(function(){right=false;});
+		   buttonright.events.onInputDown.add(function(){right=true;});
+		   buttonright.events.onInputUp.add(function(){right=false;});
+
     },
 
     update: function () {
@@ -164,21 +204,21 @@ gameState.prototype = {
     },
 
     checkPlayerInput: function () {
-        if (this.key_left.isDown) {
+        if (this.key_left.isDown || left) {
             this.shipSprite.body.angularVelocity = -shipProperties.angularVelocity;
-        } else if (this.key_right.isDown) {
+        } else if (this.key_right.isDown || right) {
             this.shipSprite.body.angularVelocity = shipProperties.angularVelocity;
         } else {
             this.shipSprite.body.angularVelocity = 0;
         }
 
-        if (this.key_thrust.isDown) {
+        if (this.key_thrust.isDownfire || thrust) {
             game.physics.arcade.accelerationFromRotation(this.shipSprite.rotation, shipProperties.acceleration, this.shipSprite.body.acceleration);
         } else {
             this.shipSprite.body.acceleration.set(0);
         }
 
-        if (this.key_fire.isDown) {
+        if (this.key_fire.isDown || fire) {
             this.fire();
         }
     },
