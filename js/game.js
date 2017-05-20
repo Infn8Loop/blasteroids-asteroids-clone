@@ -115,28 +115,28 @@ gameState.prototype = {
 				// create our virtual game controller buttons
 				thrust_x = window.innerWidth - 100;
 
-			 buttonthrust = game.add.button(window.innerWidth - 100, window.innerHeight - 125, 'buttonthrust', null, this, 0, 1, 0, 1);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
+			 buttonthrust = game.add.button(window.innerWidth - 100, window.innerHeight - 200, 'buttonthrust', null, this, 0, 1, 0, 1);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
 			 buttonthrust.fixedToCamera = true;  //our buttons should stay on the same place
 			 buttonthrust.events.onInputOver.add(function(){thrust=true;});
 			 buttonthrust.events.onInputOut.add(function(){thrust=false;});
 			 buttonthrust.events.onInputDown.add(function(){thrust=true;});
 			 buttonthrust.events.onInputUp.add(function(){thrust=false;});
 
-			 buttonfire = game.add.button(window.innerWidth - 150, window.innerHeight - 100,  'buttonfire', null, this, 0, 1, 0, 1);
+			 buttonfire = game.add.button(window.innerWidth - 150, window.innerHeight - 150,  'buttonfire', null, this, 0, 1, 0, 1);
 			 buttonfire.fixedToCamera = true;
 			 buttonfire.events.onInputOver.add(function(){fire=true;});
 			 buttonfire.events.onInputOut.add(function(){fire=false;});
 			 buttonfire.events.onInputDown.add(function(){fire=true;});
 			 buttonfire.events.onInputUp.add(function(){fire=false;});
 
-			 buttonleft = game.add.button(20, window.innerHeight - 120, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+			 buttonleft = game.add.button(20, window.innerHeight - 150, 'buttonhorizontal', null, this, 0, 1, 0, 1);
 		   buttonleft.fixedToCamera = true;
 			 buttonleft.events.onInputOver.add(function(){left=true;});
 			 buttonleft.events.onInputOut.add(function(){left=false;});
 			 buttonleft.events.onInputDown.add(function(){left=true;});
 			 buttonleft.events.onInputUp.add(function(){left=false;});
 
-			 buttonright = game.add.button(62, window.innerHeight - 120, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+			 buttonright = game.add.button(70, window.innerHeight - 150, 'buttonhorizontal', null, this, 0, 1, 0, 1);
 		   buttonright.fixedToCamera = true;
 		   buttonright.events.onInputOver.add(function(){right=true;});
 		   buttonright.events.onInputOut.add(function(){right=false;});
