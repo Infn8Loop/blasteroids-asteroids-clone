@@ -214,21 +214,21 @@ gameState.prototype = {
     },
 
     checkPlayerInput: function () {
-        if (left) {
+        if (this.key_left.isDown || left) {
             this.shipSprite.body.angularVelocity = -shipProperties.angularVelocity;
-        } else if (right) {
+        } else if (this.key_right.isDown || right) {
             this.shipSprite.body.angularVelocity = shipProperties.angularVelocity;
         } else {
             this.shipSprite.body.angularVelocity = 0;
         }
 
-        if (thrust) {
+        if (this.key_thrust.isDownfire || thrust) {
             game.physics.arcade.accelerationFromRotation(this.shipSprite.rotation, shipProperties.acceleration, this.shipSprite.body.acceleration);
         } else {
             this.shipSprite.body.acceleration.set(0);
         }
 
-        if (fire) {
+        if (this.key_fire.isDown || fire) {
             this.fire();
         }
     },
