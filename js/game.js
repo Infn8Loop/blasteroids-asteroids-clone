@@ -319,7 +319,12 @@ gameState.prototype = {
 
         if (this.shipLives) {
             game.time.events.add(Phaser.Timer.SECOND * shipProperties.timeToReset, this.resetShip, this);
-        }
+        } else {
+					document.getElementById("high-score").innerHTML = "LAST SCORE " + this.score, 500;
+					game.state.add(states.game, gameState);
+					setTimeout(game.state.start(states.game));
+
+				}
     },
 
     resetShip: function () {
@@ -357,7 +362,6 @@ gameState.prototype = {
     	if (this.asteroidsCount < asteroidProperties.maxAsteroids) {
     		this.asteroidsCount += asteroidProperties.incrementAsteroids;
     	}
-
     	this.resetAsteroids();
     }
 };

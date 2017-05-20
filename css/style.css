@@ -54,3 +54,10 @@ a:hover {
 a:active {
     color: #76f4a5;
 }
+#high-score {
+	z-index: 100;
+	color: snow;
+	position: absolute;
+	left: 40vw;
+	top: 20px;
+}
