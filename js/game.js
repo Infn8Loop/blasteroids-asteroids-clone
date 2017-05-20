@@ -209,7 +209,7 @@ gameState.prototype = {
     initKeyboard: function () {
         this.key_left = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.key_right = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-        this.key_thrustkeyb = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        this.key_thrust = game.input.keyboard.addKey(Phaser.Keyboard.UP);
         this.key_fire = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     },
 
@@ -222,7 +222,7 @@ gameState.prototype = {
             this.shipSprite.body.angularVelocity = 0;
         }
 
-        if (this.key_thrustkeyb.isDownfire || thrust) {
+        if (this.key_thrust.isDown || thrust) {
             game.physics.arcade.accelerationFromRotation(this.shipSprite.rotation, shipProperties.acceleration, this.shipSprite.body.acceleration);
         } else {
             this.shipSprite.body.acceleration.set(0);
