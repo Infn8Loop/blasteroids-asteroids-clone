@@ -28,6 +28,7 @@ var graphicAssets = {
 var soundAssets = {
 	fire: {URL:['assets/laser.m4a', 'assets/laser.ogg'], name: 'fire'},
 	destroyed: {URL:['assets/explode.m4a', 'assets/explode.m4a'], name: 'destroyed'},
+	death: {URL:['assets/explode.mp3', 'assets/explode.wav'], name: 'death'},
 };
 
 var shipProperties = {
@@ -105,6 +106,7 @@ gameState.prototype = {
 
         game.load.audio(soundAssets.destroyed.name, soundAssets.destroyed.URL);
         game.load.audio(soundAssets.fire.name, soundAssets.fire.URL);
+				game.load.audio(soundAssets.death.name, soundAssets.death.URL);
     },
 
     create: function () {
@@ -185,6 +187,7 @@ gameState.prototype = {
     initSounds: function () {
     	this.sndDestroyed = game.add.audio(soundAssets.destroyed.name);
     	this.sndFire = game.add.audio(soundAssets.fire.name);
+			this.sndDeath = game.add.audio(soundAssets.death.name);
     },
 
     initPhysics: function () {
@@ -329,13 +332,16 @@ gameState.prototype = {
 
         if (this.shipLives) {
             game.time.events.add(Phaser.Timer.SECOND * shipProperties.timeToReset, this.resetShip, this);
+						this.sndDeath.play();
         } else {
 					if (this.score > high){
 					localStorage.setItem("high", this.score);
 					document.getElementById("high-score").innerHTML = "<h4>HIGH " + this.score + "</h4>";
+					this.sndDeath.play();
 					game.state.add(states.game, gameState);
 					setTimeout(game.state.start(states.game));
 				} else {
+					this.sndDeath.play();
 					game.state.add(states.game, gameState);
 					setTimeout(game.state.start(states.game));
 				}
