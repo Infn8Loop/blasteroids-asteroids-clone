@@ -33,7 +33,7 @@ var soundAssets = {
 var shipProperties = {
     startX: window.innerWidth * 0.5,
     startY: window.innerHeight * 0.5,
-	acceleration: 475,
+	acceleration: 425,
 	drag: 85,
 	maxVelocity: 350,
 	angularVelocity: 325,
