@@ -1,7 +1,7 @@
 alert("Blasteroids- a phaser.JS game by MSRinteractive \n This game requires a keyboard. Use the arrow keys to steer your ship. Press the Space-Bar to Blast the Aliens. \n Click OK when you are ready to begin. ");
 var gameProperties = {
-	screenWidth: window.innerWidth -40,
-	screenHeight: window.innerHeight -160,
+	screenWidth: window.innerWidth -50,
+	screenHeight: window.innerHeight -50,
 
 	delayToStartLevel: 3,
 };
@@ -61,12 +61,12 @@ var fontAssets = {
 var gameState = function (game){
     this.shipSprite;
     this.shipIsInvulnerable;
-    
+
     this.key_left;
     this.key_right;
     this.key_thrust;
     this.key_fire;
-    
+
     this.bulletGroup;
     this.bulletInterval = 0;
 
@@ -84,19 +84,19 @@ var gameState = function (game){
 };
 
 gameState.prototype = {
-    
+
     preload: function () {
         game.load.image(graphicAssets.asteroidLarge.name, graphicAssets.asteroidLarge.URL);
         game.load.image(graphicAssets.asteroidMedium.name, graphicAssets.asteroidMedium.URL);
         game.load.image(graphicAssets.asteroidSmall.name, graphicAssets.asteroidSmall.URL);
-        
+
         game.load.image(graphicAssets.bullet.name, graphicAssets.bullet.URL);
         game.load.image(graphicAssets.ship.name, graphicAssets.ship.URL);
 
         game.load.audio(soundAssets.destroyed.name, soundAssets.destroyed.URL);
         game.load.audio(soundAssets.fire.name, soundAssets.fire.URL);
     },
-    
+
     create: function () {
         this.initGraphics();
         this.initSounds();
@@ -110,23 +110,23 @@ gameState.prototype = {
         this.checkBoundaries(this.shipSprite);
         this.bulletGroup.forEachExists(this.checkBoundaries, this);
         this.asteroidGroup.forEachExists(this.checkBoundaries, this);
-        
+
         game.physics.arcade.overlap(this.bulletGroup, this.asteroidGroup, this.asteroidCollision, null, this);
         if (!this.shipIsInvulnerable) {
         game.physics.arcade.overlap(this.shipSprite, this.asteroidGroup, this.asteroidCollision, null, this);
         }
     },
-    
+
     initGraphics: function () {
         this.shipSprite = game.add.sprite(shipProperties.startX, shipProperties.startY, graphicAssets.ship.name);
         this.shipSprite.angle = -90;
         this.shipSprite.anchor.set(0.5, 0.5);
-        
+
         this.bulletGroup = game.add.group();
         this.asteroidGroup = game.add.group();
-        
+
         this.tf_lives = game.add.text(20, 10, shipProperties.startingLives, fontAssets.counterFontStyle);
-    
+
         this.tf_score = game.add.text(gameProperties.screenWidth - 20, 10, "0", fontAssets.counterFontStyle);
     	this.tf_score.align - 'right';
     	this.tf_score.anchor.set(1,0);
@@ -136,14 +136,14 @@ gameState.prototype = {
     	this.sndDestroyed = game.add.audio(soundAssets.destroyed.name);
     	this.sndFire = game.add.audio(soundAssets.fire.name);
     },
-    
+
     initPhysics: function () {
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        
+
         game.physics.enable(this.shipSprite, Phaser.Physics.ARCADE);
         this.shipSprite.body.drag.set(shipProperties.drag);
         this.shipSprite.body.maxVelocity.set(shipProperties.maxVelocity);
-        
+
         this.bulletGroup.enableBody = true;
         this.bulletGroup.physicsBodyType = Phaser.Physics.ARCADE;
         this.bulletGroup.createMultiple(bulletProperties.maxCount, graphicAssets.bullet.name);
@@ -155,14 +155,14 @@ gameState.prototype = {
         this.asteroidGroup.enableBody = true;
         this.asteroidGroup.physicsBodyType = Phaser.Physics.ARCADE;
     },
-    
+
     initKeyboard: function () {
         this.key_left = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.key_right = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
         this.key_thrust = game.input.keyboard.addKey(Phaser.Keyboard.UP);
         this.key_fire = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     },
-    
+
     checkPlayerInput: function () {
         if (this.key_left.isDown) {
             this.shipSprite.body.angularVelocity = -shipProperties.angularVelocity;
@@ -171,24 +171,24 @@ gameState.prototype = {
         } else {
             this.shipSprite.body.angularVelocity = 0;
         }
-        
+
         if (this.key_thrust.isDown) {
             game.physics.arcade.accelerationFromRotation(this.shipSprite.rotation, shipProperties.acceleration, this.shipSprite.body.acceleration);
         } else {
             this.shipSprite.body.acceleration.set(0);
         }
-        
+
         if (this.key_fire.isDown) {
             this.fire();
         }
     },
-    
+
     checkBoundaries: function (sprite) {
         if (sprite.x < 0) {
             sprite.x = game.width;
         } else if (sprite.x > game.width) {
             sprite.x = 0;
-        } 
+        }
 
         if (sprite.y < 0) {
             sprite.y = game.height;
@@ -196,7 +196,7 @@ gameState.prototype = {
             sprite.y = 0;
         }
     },
-    
+
     fire:  function () {
         if (this.shipSprite.visible) {
 
@@ -204,12 +204,12 @@ gameState.prototype = {
         	this.sndFire.play();
 
             var bullet = this.bulletGroup.getFirstExists(false);
-            
+
             if (bullet) {
                 var length = this.shipSprite.width * 0.9;
                 var x = this.shipSprite.x + (Math.cos(this.shipSprite.rotation) * length);
                 var y = this.shipSprite.y + (Math.sin(this.shipSprite.rotation) * length);
-                
+
                 bullet.reset(x, y);
                 bullet.lifespan = bulletProperties.lifeSpan;
                 bullet.rotation = this.shipSprite.rotation;
@@ -221,10 +221,10 @@ gameState.prototype = {
 
         }
     },
-    
+
     createAsteroid: function (x, y, size, pieces) {
         if (pieces === undefined) { pieces = 1; }
-        
+
         for (var i=0; i<pieces; i++) {
             var asteroid = this.asteroidGroup.create(x, y, size);
             asteroid.anchor.set(0.5, 0.5);
@@ -236,13 +236,13 @@ gameState.prototype = {
             game.physics.arcade.velocityFromRotation(randomAngle, randomVelocity, asteroid.body.velocity);
         }
     },
-    
+
     resetAsteroids: function () {
         for (var i=0; i < this.asteroidsCount; i++ ) {
             var side = Math.round(Math.random());
             var x;
             var y;
-            
+
             if (side) {
                 x = Math.round(Math.random()) * gameProperties.screenWidth;
                 y = Math.random() * gameProperties.screenHeight;
@@ -250,21 +250,21 @@ gameState.prototype = {
                 x = Math.random() * gameProperties.screenWidth;
                 y = Math.round(Math.random()) * gameProperties.screenWidth;
             }
-            
+
             this.createAsteroid(x, y, graphicAssets.asteroidLarge.name);
         }
     },
-    
+
     asteroidCollision: function (target, asteroid) {
     	this.sndDestroyed.play();
 
         target.kill();
         asteroid.kill();
-        
+
         if (target.key == graphicAssets.ship.name) {
             this.destroyShip();
         }
-        
+
         this.splitAsteroid(asteroid);
         this.updateScore(asteroidProperties[asteroid.key].score);
 
@@ -272,7 +272,7 @@ gameState.prototype = {
         	game.time.events.add(Phaser.Timer.SECOND * gameProperties.delayToStartLevel, this.nextLevel, this);
         }
     },
-    
+
     destroyShip: function () {
         this.shipLives --;
         this.tf_lives.text = this.shipLives;
@@ -281,7 +281,7 @@ gameState.prototype = {
             game.time.events.add(Phaser.Timer.SECOND * shipProperties.timeToReset, this.resetShip, this);
         }
     },
-    
+
     resetShip: function () {
         this.shipIsInvulnerable = true;
         this.shipSprite.reset(shipProperties.startX, shipProperties.startY);
@@ -295,7 +295,7 @@ gameState.prototype = {
     	this.shipIsInvulnerable = false;
     	this.shipSprite.visible = true;
     },
-	
+
     shipBlink: function() {
     	this.shipSprite.visible = !this.shipSprite.visible;
     },
